@@ -48,8 +48,8 @@ app.get("/pages", function (req, res) {
         });
 });
 
-app.get("/pages/summary", function (req, res) {
-    db.Page.findOne(req.body)
+app.get("/pages/:id", function (req, res) {
+    db.Page.findOne({ _id: req.params.id })
         .populate("summary")
         .then(function (dbPage) {
             res.json(dbPage);
@@ -59,33 +59,20 @@ app.get("/pages/summary", function (req, res) {
         });
 });
 
-app.get("/pages", function (req, res) {
-    db.Page.find({})
-        .then(function (dbPage) {
+    app.post("/pages/:id", function (req, res) {
+        db.Page.create(req.body)
+        .then(function(dbPage) {
+            return db.Page.findOnAndUpdate({_id: req.params.id}, {page: dbPage._id}, {new: true});
+        })
+        .then(function(dbPage) {
             res.json(dbPage);
         })
-        .catch(function (err) {
+        .catch(function(err) {
             res.json(err);
         });
-});
-
-app.get("/pages/summary", function (req, res) {
-    db.Page.findOne()
-        .populate("summary")
-        .then(function (dbPage) {
-            res.json(dbPage);
-        })
-        .catch(function (err) {
-            res.json(err);
-        });
-});
-
-app.post("/pages/:id", function(req, res) {
-    
-})
+    });
 
 
-app.listen(PORT, function () {
-    console.log("App running port " + PORT + "!");
-});
-
+    app.listen(PORT, function () {
+        console.log("App running port " + PORT + "!");
+    });
