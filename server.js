@@ -19,12 +19,25 @@ app.get("/scrape", function (req, res) {
     axios.get("http://www.theverge.com/").then(function (response) {
         var $ = cheerio.load(response.data);
 
-        $("page h2").each(function (i, element) {
+        $(".c-entry-box--compact").each(function (i, element) {
             var result = {};
 
-            result.healine = $(this).children("a").text();
-            result.summary = $(this).children("a").text();
-            result.url = $(this).children("a").attr("href");
+            result.headline = $(this)
+                .children(".c-entry-box--compact__body")
+                .children(".c-entry-box--compact__title")
+                .children("a")
+                .text();
+            result.url = $(this)
+                .children(".c-entry-box--compact__body")
+                .children(".c-entry-box--compact__title")
+                .children("a")
+                .attr("href");
+            result.author = $(this)
+                .children(".c-entry-box--compact__body")
+                .children(".c-entry-box--compact__title")
+                .children("c-byline")
+
+                console.log(result);
 
             db.Page.create(result)
                 .then(function (dbPage) {
@@ -59,20 +72,20 @@ app.get("/pages/:id", function (req, res) {
         });
 });
 
-    app.post("/pages/:id", function (req, res) {
-        db.Page.create(req.body)
-        .then(function(dbPage) {
-            return db.Page.findOnAndUpdate({_id: req.params.id}, {page: dbPage._id}, {new: true});
+app.post("/pages/:id", function (req, res) {
+    db.Page.create(req.body)
+        .then(function (dbPage) {
+            return db.Page.findOnAndUpdate({ _id: req.params.id }, { page: dbPage._id }, { new: true });
         })
-        .then(function(dbPage) {
+        .then(function (dbPage) {
             res.json(dbPage);
         })
-        .catch(function(err) {
+        .catch(function (err) {
             res.json(err);
         });
-    });
+});
 
 
-    app.listen(PORT, function () {
-        console.log("App running port " + PORT + "!");
-    });
+app.listen(PORT, function () {
+    console.log("App running port " + PORT + "!");
+});
