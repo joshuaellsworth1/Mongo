@@ -18,5 +18,22 @@ mongoose.connect("mongodb://localhost/27017", {useNewURLParser: true});
 app.get("/scrape", function(req, res) {
     axios.get("http://www.theverge.com/").then(function(response) {
         var $ = cheerio.load(response.data);
-    })
-})
+
+        $("").each(function(i, element) {
+            var result = {};
+
+            result.healine = $(this).children("a").text();
+            result.summary = $(this).children("a").text();
+            result.url = $(this).children("a").attr("href");
+
+            db.Page.create(result)
+            .then(function(dbPage) {
+                console.log(dbPage);
+            })
+            .catch(function(err) {
+                console.log(err);
+            });
+        });
+        res.send("scrape complete");
+    });
+});
