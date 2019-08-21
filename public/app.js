@@ -23,4 +23,22 @@ $(document).on("click", "p", function () {
                 $("bodytext").val(data.page.body);
             }
         });
+
+    $(document).on("click", "#notesaved", function () {
+        var thatId = $(this).attr("data-id");
+        $.ajax({
+            method: "POST",
+            url: "/pages/" + thatId,
+            data: {
+                headline: $("#headline").val(),
+                body: $("#bodytext").val()
+            }
+        })
+            .then(function (data) {
+                console.log(data);
+                $("#summary").empty();
+            });
+    });
+    $("#headline").val("");
+    $("#bodytext").val("");
 });
