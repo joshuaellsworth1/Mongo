@@ -4,6 +4,7 @@ var mongoose = require("mongoose");
 var axios = require("axios");
 var cheerio = require("cheerio");
 var db = require("./models");
+var exbhbs = require("./express-handlebars")
 
 var PORT = 3000;
 
@@ -63,7 +64,7 @@ app.get("/pages", function (req, res) {
 
 app.get("/pages/:id", function (req, res) {
     db.Page.findOne({ _id: req.params.id })
-        .populate("summary")
+        .populate("note")
         .then(function (dbPage) {
             res.json(dbPage);
         })

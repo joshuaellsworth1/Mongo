@@ -2,9 +2,8 @@ var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
 var PageSchema = new Schema({
-    headline: String,
-    url: String,
-    author: String
+    title: String,
+    body: String,
 });
 
 var Page = mongoose.model("Comment", PageSchema);
