@@ -4,11 +4,18 @@ var mongoose = require("mongoose");
 var axios = require("axios");
 var cheerio = require("cheerio");
 var db = require("./models");
-var exbhbs = require("./express-handlebars")
+var Page = require("./models/page");
+var Comment = require("./models/comment")
+
 
 var PORT = 3000;
 
 var app = express();
+
+var exphbs = require("express-handlebars");
+
+app.engine("handlebars", exphbs({ defaultLayout: "main" }));
+app.set("view engine", "handlebars");
 
 app.use(logger("dev"));
 app.use(express.urlencoded({ extended: true }));

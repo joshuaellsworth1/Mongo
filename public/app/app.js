@@ -1,10 +1,10 @@
 $.getJSON("/pages", function (data) {
     for (var i = 0; i < data.length; i++) {
-        $("##pages").append("<p data-id='" + data[i]._id + "'>" + data[i].title + "<br />" + data[i].link + "</p>");
+        $("#pages").append("<p data-id='" + data[i]._id + "'>" + data[i].title + "<br />" + data[i].link + "</p>");
     }
 });
 
-$(document).on("click", "p", function () {
+$(document).on("click", "btn", function () {
     $("notes").empty();
     var thatId = $(this).attr("data-id");
     $.ajax({

@@ -1,4 +1,5 @@
 var mongoose = require("mongoose");
+var Page = require("./page")
 var Schema = mongoose.Schema;
 var PageSchema = new Schema({
     headline: {

@@ -1,0 +1,33 @@
+    <!-- Post Form -->
+    {{#each hangouts}}
+    <div class="card">
+      <div class="card-header">
+        {{date}}
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">{{name}}</h5>
+        <p>{{location}}</p>
+        <small>{{category}}</small>
+        <p class="card-text">{{details}}</p>
+        <a href="#" data-id={{id}} class="btn btn-secondary" id="tagBtn" data-toggle="modal"
+            data-target="#tagAlongModal">tag along</a>
+      </div>
+    </div>
+    {{/each}}
+    <!-- Modal -->
+        <div class="modal fade" id="tagAlongModal" role="dialog">
+          <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+              </div>
+              <div class="modal-body">
+                <p>cool! you're now tagging along</p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">close</button>
+              </div>
+            </div>
+          </div>
+        </div>
