@@ -5,20 +5,34 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Mongo Scraper</title>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"
         integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <script src="/app/app.js"></script>
+
 </head>
 
 <body>
 
-    <div class="container">
-        {{> nav }}
-       <div class="container">
-           {{{ body }}}
-       </div>
+    <div class="jumbotron jumbotron-fluid">
+        <h1 class="display-4">Mongo Scraper</h1>
+        <img src="https://www.underconsideration.com/brandnew/archives/the_verge_2016_logo.png" alt="Verge Logo"><br>
+            <button id="scrape">Scrape Jawns</button>
+        <a href="/saved">
+        <h2>Save Jawns</h2></a>
+        
+    </div>
 
-    <script src="/public/app/app.js"></script>
+    <div class="container">
+        {{{ body }}}
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="/app/app.js"></script>
 
 </body>
 

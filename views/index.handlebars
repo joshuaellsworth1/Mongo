@@ -1,18 +1,8 @@
-<div class="row">
-  <div class="col-12">
-    <!-- Jumbotron -->
-    <div class="jumbotron jumbotron-fluid" id="display" style="padding: none">
-      <!-- User Buttons -->
-      <div class="user-btn">
-        <a href="/join"><button class="btn btn-lg btn-warning"><span class="join"></span>
-            JOIN</button></a>
-        <a href="/post"><button class="btn btn-lg btn-warning"><span class="post"></span>
-            POST</button></a>
-      </div>
-    </div>
-  </div>
-</div>
-<div class="row">
-  <div class="col-12">
-  </div>
-</div>
+{{#each page}}
+
+<h3>{{headline}}</h3>
+<a href={{url}}>{{url}}</a>
+
+<button type="button" page-id="{{this._id}}" class="btn btn-primary saved">Save</button>
+
+{{/each}}

@@ -10,13 +10,17 @@ var PageSchema = new Schema({
         type: String,
         required: true
     },
-    author: {
-        type: String,
-        required: true
+    // author: {
+    //     type: String,
+    //     required: true
+    // },
+    saved: {
+        type: Boolean,
+        default: false
     },
     note: {
         type: Schema.Types.ObjectId,
-        href: "Comment"
+        ref: "Comment"
     }
 });
 

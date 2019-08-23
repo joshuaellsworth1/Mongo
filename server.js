@@ -23,6 +23,43 @@ app.use(express.json());
 app.use(express.static("public"));
 mongoose.connect("mongodb://localhost/unit18Populater", { useNewUrlParser: true });
 
+app.get("/", function(req, res) {
+    db.Page.find({saved: false})
+        .then(function (dbPage) {
+            console.log(dbPage);
+            var hbsObject = {
+                page: dbPage
+            };
+            res.render("index", hbsObject)
+        })
+        .catch(function (err) {
+            res.json(err);
+        });
+    // res.render("index");
+});
+
+app.get("/saved", function(req, res) {
+    db.Page.find({saved: true})
+        .then(function (dbPage) {
+            console.log(dbPage);
+            var hbsObject = {
+                page: dbPage
+            };
+            res.render("saved", hbsObject)
+        })
+        .catch(function (err) {
+            res.json(err);
+        });
+    // res.render("index");
+});
+
+//look at unit 18, activity 12 for the table to be deleted
+
+// in server.js create a route that will delete everything in page collection
+// in app.js make an on-click function with an ajax call to the clear route that you made in server.js
+// on the front end, make a button to correspond to the on-click
+//then add button for clear-all function
+
 app.get("/scrape", function (req, res) {
     axios.get("http://www.theverge.com/").then(function (response) {
         var $ = cheerio.load(response.data);
@@ -40,10 +77,10 @@ app.get("/scrape", function (req, res) {
                 .children(".c-entry-box--compact__title")
                 .children("a")
                 .attr("href");
-            result.author = $(this)
-                .children(".c-entry-box--compact__body")
-                .children(".c-entry-box--compact__title")
-                .children("c-byline")
+            // result.author = $(this)
+            //     .children(".c-entry-box--compact__body")
+            //     .children(".c-entry-box--compact__title")
+            //     .children("c-byline")
 
                 console.log(result);
 
@@ -83,7 +120,7 @@ app.get("/pages/:id", function (req, res) {
 app.post("/pages/:id", function (req, res) {
     db.Page.create(req.body)
         .then(function (dbPage) {
-            return db.Page.findOnAndUpdate({ _id: req.params.id }, { page: dbPage._id }, { new: true });
+            return db.Page.findOneAndUpdate({ _id: req.params.id }, { page: dbPage._id }, { new: true });
         })
         .then(function (dbPage) {
             res.json(dbPage);
@@ -91,6 +128,13 @@ app.post("/pages/:id", function (req, res) {
         .catch(function (err) {
             res.json(err);
         });
+});
+
+app.put("/pages/:id", function(req, res) {
+    db.Page.findOneAndUpdate({_id: req.params.id}, {$set: {saved: true}})
+    .then(function(dbPage) {
+        res.json(dbPage);
+    });
 });
 
 
