@@ -23,7 +23,7 @@ app.use(express.json());
 app.use(express.static("public"));
 mongoose.connect("mongodb://localhost/unit18Populater", { useNewUrlParser: true });
 
-app.get("/", function(req, res) {
+app.get("/home", function(req, res) {
     db.Page.find({saved: false})
         .then(function (dbPage) {
             console.log(dbPage);
@@ -35,7 +35,6 @@ app.get("/", function(req, res) {
         .catch(function (err) {
             res.json(err);
         });
-    // res.render("index");
 });
 
 app.get("/saved", function(req, res) {
@@ -50,7 +49,6 @@ app.get("/saved", function(req, res) {
         .catch(function (err) {
             res.json(err);
         });
-    // res.render("index");
 });
 
 //look at unit 18, activity 12 for the table to be deleted
@@ -77,10 +75,6 @@ app.get("/scrape", function (req, res) {
                 .children(".c-entry-box--compact__title")
                 .children("a")
                 .attr("href");
-            // result.author = $(this)
-            //     .children(".c-entry-box--compact__body")
-            //     .children(".c-entry-box--compact__title")
-            //     .children("c-byline")
 
                 console.log(result);
 
@@ -150,6 +144,16 @@ app.get("/clearall", function(req, res) {
       }
     });
   });
+
+  app.get("*/", function (req, res) {
+    db.Page.find({})
+        .then(function (dbPage) {
+            res.json(dbPage);
+        })
+        .catch(function (err) {
+            res.json(err);
+        });
+});
 
 app.listen(PORT, function () {
     console.log("App running port " + PORT + "!");
