@@ -1,8 +1,3 @@
-// $.getJSON("/pages", function (data) {
-//     for (var i = 0; i < data.length; i++) {
-//         $("#results").append("<p><a href='" + data[i].url + "' data-id='" + data[i]._id + "'>" + data[i].headline + "</a></p>");
-//     }
-// });
 
 $(".saved").on("click", function (event) {
     event.preventDefault();
@@ -20,12 +15,10 @@ $(".saved").on("click", function (event) {
 
 
 $("#clear-all").on("click", function() {
-    // Make an AJAX GET request to delete the notes from the db
     $.ajax({
       type: "GET",
       dataType: "json",
       url: "/clearall",
-      // On a successful call, clear the #results section
       success: function(response) {
         $("#results").empty();
       }
@@ -50,7 +43,7 @@ $("#home").on("click", function (event) {
     event.preventDefault();
     console.log("home")
 
-    $.ajax("/home", {
+    $.ajax("/", {
         type: "GET"
     }).then(
         function () {

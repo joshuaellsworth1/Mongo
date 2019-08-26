@@ -23,7 +23,7 @@ app.use(express.json());
 app.use(express.static("public"));
 mongoose.connect("mongodb://localhost/unit18Populater", { useNewUrlParser: true });
 
-app.get("/home", function(req, res) {
+app.get("/", function(req, res) {
     db.Page.find({saved: false})
         .then(function (dbPage) {
             console.log(dbPage);
@@ -145,7 +145,7 @@ app.get("/clearall", function(req, res) {
     });
   });
 
-  app.get("*/", function (req, res) {
+  app.get("/", function (req, res) {
     db.Page.find({})
         .then(function (dbPage) {
             res.json(dbPage);
