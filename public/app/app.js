@@ -18,6 +18,19 @@ $(".saved").on("click", function (event) {
     );
 });
 
+$("#clear-all").on("click", function() {
+    // Make an AJAX GET request to delete the notes from the db
+    $.ajax({
+      type: "GET",
+      dataType: "json",
+      url: "/clearall",
+      // On a successful call, clear the #results section
+      success: function(response) {
+        $("#results").empty();
+      }
+    });
+  });
+
 $("#scrape").on("click", function (event) {
     event.preventDefault();
     console.log("scrape")

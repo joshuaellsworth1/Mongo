@@ -138,6 +138,19 @@ app.put("/pages/:id", function(req, res) {
 });
 
 
+app.get("/clearall", function(req, res) {
+    db.Pages.remove({}, function(error, response) {
+      if (error) {
+        console.log(error);
+        res.send(error);
+      }
+      else {
+        console.log(response);
+        res.send(response);
+      }
+    });
+  });
+
 app.listen(PORT, function () {
     console.log("App running port " + PORT + "!");
 });
