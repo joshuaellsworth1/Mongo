@@ -158,6 +158,6 @@ app.get("/clearall", function(req, res) {
         });
 });
 
-app.listen(PORT, function () {
+app.listen(process.env.PORT || 3000, function () {
     console.log("App running port " + PORT + "!");
 });
